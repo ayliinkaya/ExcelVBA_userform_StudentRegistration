@@ -1,0 +1,100 @@
+Dim sonsatir, bulunacakdeger, hata_sil As Variant
+
+Private Sub ComboBox3_Change()
+
+End Sub
+
+Private Sub ComboBox2_Change()
+If ComboBox2.Value = "1" Then
+ComboBox3.Value = "1"
+    End If
+If ComboBox2.Value = "2" Then
+ComboBox3.Value = "2"
+    End If
+If ComboBox2.Value = "3" Then
+ComboBox3.Value = "3"
+    End If
+If ComboBox2.Value = "4" Then
+ComboBox3.Value = "4"
+    End If
+If ComboBox2.Value = "5" Then
+ComboBox3.Value = "5"
+    End If
+End Sub
+
+Private Sub CommandButton1_Click()
+If TextBox2 <> "" And TextBox3 <> "" And TextBox4 <> "" And ComboBox2 <> "" And ComboBox3 <> "" Then
+
+
+
+sonsatir = WorksheetFunction.CountA(Worksheets("ANASAYFA").Range("A:A")) + 1
+If sonsatir = 2 Then
+
+Worksheets("ANASAYFA").Cells(sonsatir, 1) = 1
+Worksheets("ANASAYFA").Cells(sonsatir, 2) = TextBox2.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 3) = TextBox3.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 4) = TextBox4.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 5) = ComboBox2.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 6) = ComboBox3.Value
+
+Else
+
+Worksheets("ANASAYFA").Cells(sonsatir, 1) = Worksheets("ANASAYFA").Cells(sonsatir - 1, 1) + 1
+Worksheets("ANASAYFA").Cells(sonsatir, 2) = TextBox2.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 3) = TextBox3.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 4) = TextBox4.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 5) = ComboBox2.Value
+Worksheets("ANASAYFA").Cells(sonsatir, 6) = ComboBox3.Value
+End If
+
+Else
+MsgBox "Tüm Alanları Doldurmanız Gerekmektedir!"
+End If
+
+
+End Sub
+
+Private Sub CommandButton2_Click()
+
+Dim txt As Control
+For Each txt In Me.Controls
+    If TypeName(txt) = "TextBox" Then txt.Value = ""
+    
+Next
+End Sub
+
+Private Sub CommandButton3_Click()
+On Error GoTo finish
+
+bulunacakdeger = InputBox("Kayıtlı Öğrenci ID Numarasını Giriniz", "Bulma İşlemi")
+Range("A:A").Find(bulunacakdeger).Select
+hata_sil = ActiveCell.Row
+
+    TextBox1.Value = Worksheets("ANASAYFA").Cells(hata_sil, 1)
+    TextBox2.Value = Worksheets("ANASAYFA").Cells(hata_sil, 2)
+    TextBox3.Value = Worksheets("ANASAYFA").Cells(hata_sil, 3)
+    TextBox4.Value = Worksheets("ANASAYFA").Cells(hata_sil, 4)
+    ComboBox2.Value = Worksheets("ANASAYFA").Cells(hata_sil, 5)
+    ComboBox3.Value = Worksheets("ANASAYFA").Cells(hata_sil, 6)
+    
+    Exit Sub
+    
+finish: MsgBox "Girdiğiniz Değer Bulunamadı!", , "HATA"
+    
+End Sub
+
+Private Sub CommandButton4_Click()
+KayitFormu.Hide
+End Sub
+
+Private Sub Label1_Click()
+
+End Sub
+
+Private Sub TextBox1_Change()
+
+End Sub
+
+Private Sub TextBox3_Change()
+
+End Sub
